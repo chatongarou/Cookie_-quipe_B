@@ -35,14 +35,14 @@ body {
 }
 
 #cookie:hover {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.1);
   filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.5));
 }
 
 @keyframes cookieClick {
   0%   { transform: scale(1) rotate(0deg); }
-  30%  { transform: scale(0.8) rotate(-15deg); }
-  60%  { transform: scale(1.2) rotate(15deg); }
+  30%  { transform: scale(0.95) rotate(-10deg); }
+  60%  { transform: scale(1.05) rotate(10deg); }
   100% { transform: scale(1) rotate(0deg); }
 }
 

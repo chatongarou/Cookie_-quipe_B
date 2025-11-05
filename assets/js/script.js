@@ -1,6 +1,6 @@
 let score = 0;
 const cookie = document.getElementById("cookie");
-const scoreDisplay = document.getElementById("score");
+const scoreDisplay = document.getElementById("scoreDisplay");
 
 cookie.addEventListener("click", () => {
   score++;
