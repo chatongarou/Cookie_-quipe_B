@@ -1,5 +1,6 @@
 let score = 0;
 let NbAutoClicker=0;
+let production_1_autoclicker = 0.5
 const cookie = document.getElementById("cookie");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const autoClicker_button=document.getElementById("buy_AutoClicker");
@@ -14,11 +15,11 @@ cookie.addEventListener("click", () => {
 });
 
 autoClicker_button.addEventListener("click", () => {
-  score-=prix_autoclicker(NbAutoClicker);
+  let prix=prix_autoclicker(NbAutoClicker);
   NbAutoClicker++;
   autoClickerDisplay.textContent = NbAutoClicker;
   updateButton();
-  updateScore();
+  updateScore(-prix);
   update_prix_autoclicker();
 });
 
@@ -32,15 +33,16 @@ cookie.addEventListener('click', () => {
   cookie.classList.add('clicked');
 });
 
-function updateScore() {
-  // Ajoute 0.5 cookie par autoclicker chaque seconde
-  score += 0.5 * NbAutoClicker;
+function updateScore(n) {
+  //Modifie le score en ajoutan n au score
+  score += n;
   scoreDisplay.textContent = score.toFixed(0); // .toFixed(1) pour 1 décimale
+  
 }
 
 function prix_autoclicker(n){
   //donne le prix pour acheter 1 autoclicker sachant qu'on en a deja n
-  return 1.5**n
+  return Math.trunc(1.5**n)
 }
 
 function updateButton() {
@@ -55,9 +57,9 @@ function updateButton() {
 
 function update_prix_autoclicker(){
   let display=document.getElementById("dsp_prix_autoclicker")
-  display.textContent=prix_autoclicker(NbAutoClicker).toFixed(1)
+  display.textContent=prix_autoclicker(NbAutoClicker).toFixed(0)
 }
 
 update_prix_autoclicker()
 setInterval(updateButton, 1000);
-setInterval(updateScore, 1000);
+setInterval(updateScore, 1000,production_1_autoclicker*NbAutoClicker);
