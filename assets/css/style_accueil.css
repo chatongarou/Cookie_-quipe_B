@@ -43,7 +43,7 @@ body {
   0%   { transform: scale(1) rotate(0deg); }
   30%  { transform: scale(0.95) rotate(-10deg); }
   60%  { transform: scale(1.05) rotate(10deg); }
-  100% { transform: scale(1) rotate(0deg); }
+  /* 100% { transform: scale(1) rotate(0deg); } */
 }
 
 .clicked {
@@ -81,4 +81,15 @@ body {
 
 .sidebar button:hover {
   background: #ffd280;
+}
+
+.sidebar button.locked {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  border: 2px solid #999;
+}
+
+.locked:hover {
+  background-color: #ccc; /* pas d’effet hover si locked */
 }
