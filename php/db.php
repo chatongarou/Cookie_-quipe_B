@@ -1,13 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "cookie_db";
+$host = '127.0.0.1';
+$user = 'root';
+$pass = '';
+$dbname = 'cookie_db';
+$port = 3307; // <--- le port indiqué dans ton dump
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
 
 if ($conn->connect_error) {
-    die("Connexion échouée : " . $conn->connect_error);
+    die("Erreur de connexion : " . $conn->connect_error);
 }
 ?>
-

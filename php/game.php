@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Si l'utilisateur n'est pas connecté, redirige vers la page de login
+if (empty($_SESSION['user_id'])) {
+    header("Location: register.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
