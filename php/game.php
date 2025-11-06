@@ -45,7 +45,10 @@ $totalAutoClicker = $row['nb_auto_clicker'] ?? 0;
             <span id="autoClickerDSP"><?= $totalAutoClicker ?></span>
         </span>
         <hr>
-        <button>Déconnexion</button>
+        <form action="/Cookie_-quipe_B/php/logout.php" method="post" style="display:inline;">
+        <button type="submit">Déconnexion</button>
+</form>
+
     </aside>
 </div>
 
