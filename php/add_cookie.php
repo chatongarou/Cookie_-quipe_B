@@ -33,8 +33,8 @@ if ($result && $result->num_rows > 0) {
 } else {
     // Insert
     $stmt = $conn->prepare("INSERT INTO cookie (id_utilisateur, nb_cookie,nb_auto_clicker) VALUES (?, ?, ?)");
-    $zero=0;
-    $stmt->bind_param("iii", $user_id, $delta,$zero);
+    $zero = 0;
+    $stmt->bind_param("iii", $user_id, $delta, $zero);
     $stmt->execute();
 }
 
