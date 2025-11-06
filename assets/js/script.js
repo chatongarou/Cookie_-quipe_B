@@ -72,7 +72,6 @@ function sendAutoClickerToServer(amount) {
 // ------------------------------
 cookie.addEventListener("click", () => {
     score += 1;
-    debug();
 
     cookiesToSend += 1;
     console.log("✅ Score initial depuis BDD =", score);

@@ -29,12 +29,13 @@ $totalAutoClicker = $row['nb_auto_clicker'] ?? 0;
 <div class="container">
     <main class="main-area">
         <img id="cookie" src="../assets/img/cookie_image.png" alt="cookie">
-        <p>Clique sur le cookie 🍪</p>
+        <p>Clique le cookie</p>
         <p>Score : <span id="scoreDisplay"><?= $totalCookies ?></span></p>
     </main>
 
     <aside class="sidebar">
         <h2>Panneau de contrôle</h2>
+        <hr >
         <button id="buy_AutoClicker">
             Acheter un Auto-Clicker <br>
             (<span id="dsp_prix_autoclicker"></span> cookies)
@@ -43,9 +44,8 @@ $totalAutoClicker = $row['nb_auto_clicker'] ?? 0;
         <span>Nombre d'Auto-Clicker : 
             <span id="autoClickerDSP"><?= $totalAutoClicker ?></span>
         </span>
-
-        <button>⚙️ Paramètres</button>
-        <button>📈 Statistiques</button>
+        <hr>
+        <button>Déconnexion</button>
     </aside>
 </div>
 

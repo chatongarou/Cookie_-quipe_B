@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     input{width:100%;padding:8px;margin-top:4px}
     .errors{background:#ffe6e6;padding:10px;border:1px solid #ffb3b3}
   </style>
+   <link rel="stylesheet" href="../assets/css/style_login.css">
 </head>
 <body>
   <h1>Connexion</h1>

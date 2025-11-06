@@ -81,6 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .errors{background:#ffe6e6;padding:10px;border:1px solid #ffb3b3}
     .success{background:#e6ffe6;padding:10px;border:1px solid #b3ffb3}
   </style>
+  <link rel="stylesheet" href="../assets/css/style_login.css">
+
 </head>
 <body>
   <h1>Inscription</h1>

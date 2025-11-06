@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(180deg, #fff7e6, #ffe0b3);
+  background: linear-gradient(180deg, #fff7e6, #ffde82);
   height: 100vh;
   display: flex;
 }
@@ -29,20 +29,20 @@ body {
 
 /* --- Cookie --- */
 #cookie {
-  width: 300px;
+  width: 450px;
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 #cookie:hover {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.5));
+  filter: drop-shadow(0 0 6px #006633);
 }
 
 @keyframes cookieClick {
   0%   { transform: scale(1) rotate(0deg); }
-  30%  { transform: scale(0.95) rotate(-10deg); }
-  60%  { transform: scale(1.05) rotate(10deg); }
+  30%  { transform: scale(0.97) rotate(-10deg); }
+  60%  { transform: scale(1.03) rotate(10deg); }
   /* 100% { transform: scale(1) rotate(0deg); } */
 }
 
@@ -53,14 +53,14 @@ body {
 /* --- Zone latérale (aside) --- */
 .sidebar {
   width: 250px;
-  background: #fff;
-  border-left: 3px solid #f5c97b;
+  background: #d1e7d6;
+  border-left: 3px solid #006633;
   padding: 20px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h2 {
-  color: #6b4e16;
+  color: #81661c;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -68,11 +68,11 @@ body {
 .sidebar button {
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 20px 0;
   padding: 10px;
   border: none;
-  background: #f5c97b;
-  color: #4a3510;
+  background: #08772d;
+  color: #ffc832;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
@@ -80,7 +80,8 @@ body {
 }
 
 .sidebar button:hover {
-  background: #ffd280;
+  background: #006633;
+  color : #fcd15c;
 }
 
 .sidebar button.locked {
