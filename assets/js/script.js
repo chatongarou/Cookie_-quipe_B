@@ -14,7 +14,7 @@ const scoreDisplay = document.getElementById("scoreDisplay");
 const autoClickerButton = document.getElementById("buy_AutoClicker");
 const autoClickerDisplay = document.getElementById("autoClickerDSP");
 const priceDisplay = document.getElementById("dsp_prix_autoclicker");
-const debugScore = document.getElementById("debugScore");
+
 
 
 // ------------------------------
@@ -72,7 +72,7 @@ function sendAutoClickerToServer(amount) {
 // ------------------------------
 cookie.addEventListener("click", () => {
     score += 1;
-    debug();
+   
 
     cookiesToSend += 1;
     console.log("✅ Score initial depuis BDD =", score);
