@@ -1,65 +1,145 @@
-let score = 0;
-let NbAutoClicker=0;
-let production_1_autoclicker = 0.5
+// ------------------------------
+// CONFIG
+// ------------------------------
+let production_1_autoclicker = 0.5;  
+let cookiesToSend = 0;  
+const COOKIES_THRESHOLD = 10;  
+
+
+// ------------------------------
+// RÉFÉRENCES DOM
+// ------------------------------
 const cookie = document.getElementById("cookie");
 const scoreDisplay = document.getElementById("scoreDisplay");
-const autoClicker_button=document.getElementById("buy_AutoClicker");
-const autoClickerDisplay=document.getElementById("autoClickerDSP")
+const autoClickerButton = document.getElementById("buy_AutoClicker");
+const autoClickerDisplay = document.getElementById("autoClickerDSP");
+const priceDisplay = document.getElementById("dsp_prix_autoclicker");
+const debugScore = document.getElementById("debugScore");
+
+
+// ------------------------------
+// INITIALISATION DU SCORE
+// ------------------------------
+let score = parseFloat(scoreDisplay.textContent);
+let NbAutoClicker = parseFloat(autoClickerDSP.textContent);
 
 
 
 
+// ------------------------------
+// UTILITAIRES
+// ------------------------------
+function prixAutoClicker(n) {
+    return Math.trunc(1.5 ** n);
+}
+
+function updateScoreDisplay() {
+    scoreDisplay.textContent = score.toFixed(0);
+}
+
+function updateButtonState() {
+    autoClickerButton.disabled = score < prixAutoClicker(NbAutoClicker);
+}
+
+function updatePriceDisplay() {
+    priceDisplay.textContent = prixAutoClicker(NbAutoClicker);
+}
+
+
+// ------------------------------
+// ENVOI SERVEUR (dynamic script)
+// ------------------------------
+function sendCookiesToServer(delta) {
+    if (delta <= 0) return;
+
+    const script = document.createElement('script');
+    script.src = `/Cookie_-quipe_B/php/add_cookie.php?delta=${delta}`;
+    document.body.appendChild(script);
+    script.onload = () => script.remove();
+
+    console.log(`➡️ Envoi au serveur : +${delta}`);
+}
+function sendAutoClickerToServer(amount) {
+    const script = document.createElement("script");
+    script.src = `/Cookie_-quipe_B/php/add_auto_clicker.php?amount=${amount}`;
+    document.body.appendChild(script);
+    script.onload = () => script.remove();
+}
+
+
+// ------------------------------
+// CLIC SUR COOKIE
+// ------------------------------
 cookie.addEventListener("click", () => {
-  score++;
-  scoreDisplay.textContent = score.toFixed(0);
+    score += 1;
+    debug();
+
+    cookiesToSend += 1;
+    console.log("✅ Score initial depuis BDD =", score);
+    updateScoreDisplay();
+
+    // Animation
+    cookie.classList.remove("clicked");
+    void cookie.offsetWidth;
+    cookie.classList.add("clicked");
+
+    // Envoi immédiat si seuil atteint
+    if (cookiesToSend >= COOKIES_THRESHOLD) {
+        sendCookiesToServer(cookiesToSend);
+        cookiesToSend = 0;
+    }
+
+    updateButtonState();
 });
 
-autoClicker_button.addEventListener("click", () => {
-  let prix=prix_autoclicker(NbAutoClicker);
-  NbAutoClicker++;
-  autoClickerDisplay.textContent = NbAutoClicker;
-  updateButton();
-  updateScore(-prix);
-  update_prix_autoclicker();
+
+// ------------------------------
+// ACHAT AUTO-CLICKER
+// ------------------------------
+autoClickerButton.addEventListener("click", () => {
+    const prix = prixAutoClicker(NbAutoClicker);
+
+    if (score >= prix) {
+        score -= prix;
+        NbAutoClicker++;
+
+        updateScoreDisplay();
+        autoClickerDisplay.textContent = NbAutoClicker;
+        updateButtonState();
+        updatePriceDisplay();
+
+        // ✅ Sauvegarde serveur
+        sendAutoClickerToServer(1);
+    }
 });
 
-cookie.addEventListener('click', () => {
-  // Si la classe existe déjà, on la retire d’abord pour pouvoir relancer l’animation
-  cookie.classList.remove('clicked');
 
-  // Petit délai pour forcer le navigateur à redéclencher l’animation
-  void cookie.offsetWidth;
 
-  cookie.classList.add('clicked');
-});
+// ------------------------------
+// AUTO-CLICKER (toutes les secondes)
+// ------------------------------
+setInterval(() => {
+    if (NbAutoClicker > 0) {
+        const production = production_1_autoclicker * NbAutoClicker;
+        score += production;
+        cookiesToSend += production;
 
-function updateScore(n) {
-  //Modifie le score en ajoutan n au score
-  score += n;
-  scoreDisplay.textContent = score.toFixed(0); // .toFixed(1) pour 1 décimale
-  
-}
+        updateScoreDisplay();
+    }
 
-function prix_autoclicker(n){
-  //donne le prix pour acheter 1 autoclicker sachant qu'on en a deja n
-  return Math.trunc(1.5**n)
-}
+    // Envoi régulier au serveur
+    if (cookiesToSend >= 1) {
+        sendCookiesToServer(Math.floor(cookiesToSend));
+        cookiesToSend = 0;
+    }
 
-function updateButton() {
-  if (score < prix_autoclicker(NbAutoClicker)) {
-    autoClicker_button.classList.add('locked');
-    autoClicker_button.disabled = true; // désactive le clic
-  } else {
-    autoClicker_button.classList.remove('locked');
-    autoClicker_button.disabled = false; // réactive le clic
-  }
-}
+    updateButtonState();
+}, 1000);
 
-function update_prix_autoclicker(){
-  let display=document.getElementById("dsp_prix_autoclicker")
-  display.textContent=prix_autoclicker(NbAutoClicker).toFixed(0)
-}
 
-update_prix_autoclicker()
-setInterval(updateButton, 1000);
-setInterval(updateScore, 1000,production_1_autoclicker*NbAutoClicker);
+
+// ------------------------------
+// LANCEURS
+// ------------------------------
+updatePriceDisplay();
+updateButtonState();
